@@ -29,7 +29,7 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = ""; //TODO:  Write a SELECT statement that gets all products
+                cmd.CommandText = "SELECT * FROM product";
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
