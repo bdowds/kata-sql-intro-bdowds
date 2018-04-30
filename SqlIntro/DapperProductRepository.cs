@@ -33,12 +33,20 @@ namespace SqlIntro
 
         public void UpdateProduct(Product prod)
         {
-
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                conn.Execute("UPDATE product SET name = @name WHERE id = @id", new { prod.Name, prod.Id });
+            }
         }
 
         public void InsertProduct(Product prod)
         {
-
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                conn.Execute("INSERT into product (name) VALUES (@name)", new { prod.Name });
+            }
         }
     }
 }
