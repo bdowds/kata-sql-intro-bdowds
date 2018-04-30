@@ -49,7 +49,7 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = $"DELETE FROM product WHERE id = {id}";
+                cmd.CommandText = "DELETE FROM product WHERE id = @id";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -59,12 +59,12 @@ namespace SqlIntro
         /// <param name="prod"></param>
         public void UpdateProduct(Product prod)
         {
-            //This is annoying and unnecessarily tedious for large objects.
-            //More on this in the future...  Nothing to do here..
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
+
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "update product set name = @name where id = @id";
+                cmd.CommandText = "UPDATE product SET name = @name WHERE id = @id";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
                 cmd.Parameters.AddWithValue("@id", prod.Id);
                 cmd.ExecuteNonQuery();
@@ -79,7 +79,7 @@ namespace SqlIntro
             using (var conn = new MySqlConnection(_connectionString))
             {
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT into product (name) values(@name)";
+                cmd.CommandText = "INSERT into product (name) VALUES (@name)";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
                 cmd.ExecuteNonQuery();
             }
