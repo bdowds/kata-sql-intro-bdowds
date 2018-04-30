@@ -50,6 +50,7 @@ namespace SqlIntro
 
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM product WHERE id = @id";
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -78,6 +79,8 @@ namespace SqlIntro
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
+
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT into product (name) VALUES (@name)";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
