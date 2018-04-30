@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SqlIntro
 {
@@ -14,10 +16,7 @@ namespace SqlIntro
                 Console.WriteLine("Product Name:" + prod.Name);
             }
 
-           
             Console.ReadLine();
         }
-
-       
     }
 }
