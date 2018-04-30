@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 namespace SqlIntro
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly string _connectionString;
 
@@ -29,7 +23,7 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM product";
+                cmd.CommandText = "SELECT ProductId AS Id, Name FROM product";
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {

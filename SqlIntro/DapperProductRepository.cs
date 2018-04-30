@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace SqlIntro
 {
-    class DapperProductRepository
+    class DapperProductRepository : IProductRepository
     {
         private readonly string _connectionString;
 
@@ -15,12 +15,20 @@ namespace SqlIntro
 
         public IEnumerable<Product> GetProducts()
         {
-
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                return conn.Query<Product>("SELECT ProductId AS Id, Name FROM product;");
+            }
         }
 
         public void DeleteProduct(int id)
         {
-
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                conn.Execute("DELETE from Product WHERE ProductId = @id", new { id });
+            }
         }
 
         public void UpdateProduct(Product prod)
