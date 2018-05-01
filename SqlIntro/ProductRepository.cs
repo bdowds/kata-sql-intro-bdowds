@@ -81,5 +81,15 @@ namespace SqlIntro
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public IEnumerable<Product> GetProductsWithReview()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<Product> GetProductsAndReview()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

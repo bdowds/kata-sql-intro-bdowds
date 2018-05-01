@@ -48,5 +48,15 @@ namespace SqlIntro
                 conn.Execute("INSERT into product (name) VALUES (@name)", new {name = prod.Name });
             }
         }
+
+        public IEnumerable<Product> GetProductsWithReview()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<Product> GetProductsAndReview()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
