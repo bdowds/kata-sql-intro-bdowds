@@ -55,22 +55,48 @@ namespace SqlIntro
             }
             WaitForEnterKey();
 
-            //InsertProduct with Dapper
+
+            //InsertProduct
+            repo.DeleteProduct(newItem.Id);
             Console.WriteLine("Press Enter to Add a new Product");
+            Console.ReadKey();
+            repo.InsertProduct(newItem);
+            Console.WriteLine("\nNew Item Added");
+            WaitForEnterKey();
+
+            //UpdateProduct
+            Console.WriteLine("Press Enter to Update the new Product");
+            Console.ReadKey();
+            repo.UpdateProduct(updateItem);
+            Console.WriteLine("\nItem Updated");
+            WaitForEnterKey();
+
+            //DeleteProduct
+            Console.WriteLine("Press Enter to Delete the new Product");
+            Console.ReadKey();
+            repo.DeleteProduct(newItem.Id);
+            Console.WriteLine("\nItem Deleted");
+            WaitForEnterKey();
+
+
+
+            //InsertProduct with Dapper
+            dapperRepo.DeleteProduct(newItem.Id);
+            Console.WriteLine("Press Enter to Add a new Product with Dapper");
             Console.ReadKey();
             dapperRepo.InsertProduct(newItem);
             Console.WriteLine("\nNew Item Added");
             WaitForEnterKey();
 
             //UpdateProduct with Dapper
-            Console.WriteLine("Press Enter to Update the new Product");
+            Console.WriteLine("Press Enter to Update the new Product with Dapper");
             Console.ReadKey();
             dapperRepo.UpdateProduct(updateItem);
             Console.WriteLine("\nItem Updated");
             WaitForEnterKey();
 
             //DeleteProduct with Dapper
-            Console.WriteLine("Press Enter to Delete the new Product");
+            Console.WriteLine("Press Enter to Delete the new Product with Dapper");
             Console.ReadKey();
             dapperRepo.DeleteProduct(newItem.Id);
             Console.WriteLine("\nItem Deleted");

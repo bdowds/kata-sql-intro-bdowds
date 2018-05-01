@@ -43,7 +43,7 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM product WHERE id = @id";
+                cmd.CommandText = "DELETE FROM product WHERE productId = @id";
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
@@ -59,7 +59,7 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE product SET name = @name WHERE id = @id";
+                cmd.CommandText = "UPDATE product SET name = @name WHERE productId = @id";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
                 cmd.Parameters.AddWithValue("@id", prod.Id);
                 cmd.ExecuteNonQuery();
@@ -76,8 +76,9 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT into product (name) VALUES (@name)";
+                cmd.CommandText = "INSERT into product (productID, name) VALUES (@id, @name)";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
+                cmd.Parameters.AddWithValue("@id", prod.Id);
                 cmd.ExecuteNonQuery();
             }
         }
