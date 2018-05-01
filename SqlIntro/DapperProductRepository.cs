@@ -51,12 +51,26 @@ namespace SqlIntro
 
         public IEnumerable<Product> GetProductsWithReview()
         {
-            throw new System.NotImplementedException();
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                return conn.Query<Product>("SELECT product.ProductId AS Id, Name, Comments AS Review"
+                                           + " FROM product"
+                                           + " INNER JOIN productReview"
+                                           + " ON product.ProductId = productReview.ProductId;");
+            }
         }
 
         public IEnumerable<Product> GetProductsAndReview()
         {
-            throw new System.NotImplementedException();
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                return conn.Query<Product>("SELECT product.ProductId AS Id, Name, Comments AS Review"
+                                           + " FROM product"
+                                           + " LEFT JOIN productReview"
+                                           + " ON product.ProductId = productReview.ProductId;");
+            }
         }
     }
 }
