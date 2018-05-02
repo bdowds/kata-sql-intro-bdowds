@@ -76,9 +76,8 @@ namespace SqlIntro
                 conn.Open();
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT into product (productID, name) VALUES (@id, @name)";
+                cmd.CommandText = "INSERT into product (name) VALUES (@name)";
                 cmd.Parameters.AddWithValue("@name", prod.Name);
-                cmd.Parameters.AddWithValue("@id", prod.Id);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -97,7 +96,7 @@ namespace SqlIntro
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    yield return new Product { Name = dr["Name"].ToString(), Review = dr["Review"].ToString() };
+                    yield return new Product { Id = (int)(dr["Id"]), Name = dr["Name"].ToString(), Review = dr["Review"].ToString() };
                 }
             }
         }
@@ -116,7 +115,23 @@ namespace SqlIntro
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    yield return new Product { Name = dr["Name"].ToString(), Review = dr["Review"].ToString() };
+                    yield return new Product { Id = (int)(dr["Id"]), Name = dr["Name"].ToString(), Review = dr["Review"].ToString() };
+                }
+            }
+        }
+
+        public IEnumerable<Product> GetNewestId()
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ProductID AS Id FROM product ORDER BY productId DESC LIMIT 1";
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    yield return new Product { Id = (int)dr["Id"] };
                 }
             }
         }

@@ -10,5 +10,6 @@ namespace SqlIntro
         void InsertProduct(Product prod);
         IEnumerable<Product> GetProductsWithReview();
         IEnumerable<Product> GetProductsAndReview();
+        IEnumerable<Product> GetNewestId();
     }
 }

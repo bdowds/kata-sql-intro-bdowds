@@ -45,7 +45,7 @@ namespace SqlIntro
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                conn.Execute("INSERT into product (productID, name) VALUES (@id, @name)", new {id = prod.Id, name = prod.Name });
+                conn.Execute("INSERT into product (name) VALUES (@name)", new { name = prod.Name });
             }
         }
 
@@ -70,6 +70,15 @@ namespace SqlIntro
                                            + " FROM product"
                                            + " LEFT JOIN productReview"
                                            + " ON product.ProductId = productReview.ProductId;");
+            }
+        }
+
+        public IEnumerable<Product> GetNewestId()
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                return conn.Query<Product>("SELECT ProductID AS Id FROM product ORDER BY productId DESC LIMIT 1;");
             }
         }
     }
